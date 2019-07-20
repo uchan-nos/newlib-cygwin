@@ -225,10 +225,16 @@ __wcwidth (const wint_t ucs)
 #endif /* _MB_CAPABLE */
 }
 
+#ifdef __CYGWIN__
+#define WCHAR_TYPE wint_t
+#else
+#define WCHAR_TYPE wchar_t
+#endif
+
 int
-wcwidth (const wint_t wc)
+wcwidth (const WCHAR_TYPE wc)
 {
-  wint_t wi = wc;
+  WCHAR_TYPE wi = wc;
 
 #ifdef _MB_CAPABLE
   wi = _jp2uc (wi);
